@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
-	"vpnweb/controllers"
+	"github.com/ewangsong/vpnweb/controllers"
 )
 
 func init() {
