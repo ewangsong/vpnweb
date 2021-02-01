@@ -7,7 +7,7 @@ type Registercontroller struct {
 }
 
 func (r *Registercontroller) GetRegister() {
-
+	r.TplName = "index.tpl"
 }
 func (r *Registercontroller) PostRegister() {
 
