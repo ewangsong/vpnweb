@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>openVPN 注册页面</title>
+<style>
+        .pg_header{
+            position: fixed;
+            height: 48px;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #2459a2; 
+            line-height: 48px;
+        }
+        .pg_header .logo{
+            margin: 0 auto;
+            float: left;
+            width: 200px;
+            text-align: center;
+            line-height: 48px;
+                        font-size: 28px;
+            color: white;
+        }
+        .pg_dl{
+            left: 400px;
+            display: inline-block;
+            padding: 0 450px;
+            font-size: 28px;
+            color: white;
+        }
+        .pg_header .pg_dl:hover{
+            background-color: #2459fb;
+            cursor: pointer;
+        }
+        .left{
+            margin-top: 20px;
+            width: 400px;
+            display: inline-block;
+            float: left;        
+        }
+        .pg_body{
+            margin-top: 50px;
+            font-size: 18px;
+            display: inline-block;
+            width: 200px;
+        }
+        .pg_body .menu{
+            width: 800px;
+            padding: 15px;    
+            float: left;
+            font-weight: bold;
+        }
+        input[type="text"]{
+            width: 200px;
+            height: 25px;
+            border-radius: 6px;
+        }
+        input[type="password"]{
+            width: 200px;
+            height: 25px;
+            border-radius: 6px;
+        }
+        input[type="button"]{
+            background-color: #555555;
+               border: none;
+            color: white;
+            padding: 12px 29px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 17px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        input[type="submit"]{
+            background-color: #555555;
+               border: none;
+            color: white;
+            padding: 12px 29px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 17px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .kong{
+            margin-top: -54px;
+            margin-left: 200px;
+            float:left;
+            padding: 15px;
+        }
+        .img{
+            width: 50px;
+            height: 40px;
+        }
+        .can{
+            width: 1220px;
+            height: 40px;
+            line-height: 40px;
+            margin: 0 auto;
+            text-align: center;
+            display: inline-block;
+        }
+        .tian{
+            color: red;
+            float: right;
+            font-size: 12px;
+            margin-right: -120px;
+            margin-top: -25px;
+        }
+    </style>
+</head>
+<body id="i88" style="margin: 0">
+    <div class = "pg_header">
+        <a class = "logo">万顺</a>
+        <a class="pg_dl" id="i77">VPN 注册</a>    
+    </div>
+
+    <form name="tijiao" method="post" action="/register" onsubmit="return check()">
+        <div class="left"></div>
+        <div class="pg_body">
+                <div class="menu">公司邮箱地址:</div>
+                    <div class="kong">
+                        <input id="email" type="text" name="email"  placeholder="默认用户账号为邮箱账号前缀"/>
+                    </div>
+                <div class="menu">真实姓名:</div>
+                    <div class="kong">
+                        <input id="i2" type="text" name="realname">
+                    </div>      
+        </div>
+        <div class="can">
+            <input id="i111" type="submit" name="002" value="注  册">
+            <p style="width: 50px;display: inline-block;"></p>
+        </div>
+    </form>
+    <script type="text/javascript">//邮箱验证
+
+  function checkEmail() {
+    var temp = document.getElementById("email");
+    //对电子邮件的验证
+    var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@wsecar.com$/;
+    if (!myreg.test(temp.value)) {
+      alert('提示\n\n请输入有效的E_mail！');
+      location.reload();
+      return false;
+    } else {
+        return true;
+      
+    }
+  }
+        function checkname(){ 
+                var div = document.getElementById("div2"); 
+                var name1 = document.tijiao.i2.value; 
+                if (name1 == "") { 
+                alert("用户名不能为空！"); 
+                return false; 
+            } 
+                return true;
+        }
+
+function check(){ 
+            if (checkname() && checkEmail()) { 
+            alert("注册邮件已发送，请登入邮箱查收！！！");
+            return true; 
+            } 
+            else { 
+            return false; 
+        } 
+    } 
+
+  function checkUser() {
+            var email = document.getElementById("email");
+            var realname = document.getElementById("realname");
+            params = {"email": email, "realname":realname};
+            $.ajax({
+                type:"POST",
+                url:"/register",
+                date:params,
+            }).done(function(data){
+                if (data.code > 0) {
+                    alert(data.msg)
+                    return false;
+                }
+                else {
+                    alert(data.msg);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
