@@ -74,7 +74,6 @@ func (r *Registercontroller) PostAuth() {
 	v, ok := x.(string)
 	if ok {
 		v = cutemail(v)
-		fmt.Println(v)
 		models.ZipFile(v)
 		//下载配置好的文件
 		r.Ctx.Output.Download("/opt/vpnweb/client/" + v + ".zip")

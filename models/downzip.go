@@ -2,7 +2,6 @@ package models
 
 import (
 	"archive/zip"
-	"fmt"
 	"github.com/astaxie/beego"
 	"io"
 	"os"
@@ -13,7 +12,6 @@ import (
 func ZipFile(name string) {
 	src := "/etc/openvpn/client/" + name
 	zipFileName := name + ".zip"
-	fmt.Println(src, zipFileName)
 	Zip(src, zipFileName)
 
 }

@@ -2,15 +2,17 @@
 package models
 
 import (
+	"github.com/astaxie/beego"
 	"gopkg.in/gomail.v2"
 	"strconv"
 )
 
 //发送邮件
 func SendMail(mailTo string, name string, id string) error {
+	url := beego.AppConfig.String("registerurl")
 	subject := "openVPN账号注册"
 
-	url := "http://192.168.1.10:9999/auth?email=" + mailTo + "&RegisterID=" + id
+	url = url + "/auth?email=" + mailTo + "&RegisterID=" + id
 	body := "Hello, " + name + " 这是一封注册邮件，请点击<a href=" + url + ">此处</a>完成注册," + "如果点击无效请将地址拷贝到浏览器地址栏直接" +
 		"访问完成确认" + "<br>" + "<a href=" + url + ">" + url + "</a>"
 	//邮件信息
