@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript">
+    function disp_prompt()
+    {
+        var name=prompt("请输入密码","")
+        if (name==null && name=="")
+        {
+            location.reload();
+
+        }else {
+            window.location.href="/admin/update?password="+name;
+        }
+
+    }
+
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>openVPN 管理</title>
+</head>
+<body onload="disp_prompt()">
+
+</body>
+</html>

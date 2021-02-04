@@ -11,7 +11,7 @@ func init() {
 	beego.SetViewsPath("/opt/vpnweb/views/")
 	beego.LoadAppConfig("ini", "/opt/vpnweb/conf/app.conf")
 	jsonConfig := `{
-	    "filename" : "/var/log/vpnweb/vpnweb.log"
+	   "filename" : "/var/log/vpnweb/vpnweb.log"
 	}` //定义日志文件路径和名字
 	// jsonConfig := `{
 	//     "filename" : "./lanradius.log"

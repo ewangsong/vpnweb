@@ -25,6 +25,8 @@ func (r *Registercontroller) GetRegister2() {
 func (r *Registercontroller) PostRegister() {
 	email := r.GetString("email")
 	name := r.GetString("realname")
+	url := strings.Split(strings.Split(r.Ctx.Request.Referer(), "//")[1], "/")[0]
+
 	ok, err := models.CheckUser(cutemail(email))
 	if err != nil {
 		beego.Error("打开index.txt文件错误", err)
@@ -40,7 +42,8 @@ func (r *Registercontroller) PostRegister() {
 		return
 	}
 	id := models.CreateRandomString()
-	err = models.SendMail(email, name, id)
+	//发送邮件
+	err = models.SendMail(url, email, name, id)
 	if err != nil {
 		beego.Error("注册页面发送邮件失败，失败信息如下：", err)
 		return
@@ -78,6 +81,36 @@ func (r *Registercontroller) PostAuth() {
 		//下载配置好的文件
 		r.Ctx.Output.Download("/opt/vpnweb/client/" + v + ".zip")
 	}
+}
+
+//管理页面函数
+func (r *Registercontroller) GetAdmin() {
+	r.TplName = "admin.html"
+}
+func (r *Registercontroller) GetUpdate() {
+	r.TplName = "update.html"
+	passwd := beego.AppConfig.String("webpassword")
+	pad := r.Ctx.Input.Query("password")
+	if passwd != pad {
+		r.Redirect("/401", 302)
+		return
+	}
+	//	r.SetSession("admin", passwd)
+}
+func (r *Registercontroller) PostUpdate() {
+	email := r.GetString("email")
+	ok := strings.HasSuffix(email, "wsecar.com")
+	if ok {
+		email = cutemail(email)
+	}
+	models.DelUser(email)
+
+	r.TplName = "update.html"
+}
+
+//未验证页面
+func (r *Registercontroller) Get401() {
+	r.TplName = "401.html"
 }
 
 //cutemail 切割邮箱地址获取账号

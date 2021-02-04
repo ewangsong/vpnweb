@@ -27,7 +27,7 @@ func CheckUser(input string) (ok bool, err error) {
 	//读取文件中的用户
 	file, err := os.Open("/etc/openvpn/easy-rsa/3/pki/index.txt")
 	if err != nil {
-		fmt.Println("open file failed, err:", err)
+		beego.Error("open file failed, err:", err)
 		return false, err
 	}
 	defer file.Close()
